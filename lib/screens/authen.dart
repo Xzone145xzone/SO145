@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 
 
-main(){}
-
-
 class Authen extends StatefulWidget {
   @override
   _AuthenState createState() => _AuthenState();
@@ -12,6 +9,6 @@ class Authen extends StatefulWidget {
 class _AuthenState extends State<Authen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(body: Text('Authen'),);
   }
 }
