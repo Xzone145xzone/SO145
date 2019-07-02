@@ -11,10 +11,31 @@ class _AuthenState extends State<Authen> {
   double mySize = 250.0;
 
 //Medthod
+  Widget mySizeBox() {
+    return SizedBox(
+      width: 8.0,
+    );
+  }
+
+  Widget signUpButton() {
+    return RaisedButton(
+      color: Colors.orange[400],
+      child: Text(
+        'Sign Up',
+        style: TextStyle(color: Colors.white),
+      ),
+      onPressed: () {},
+    );
+  }
 
   Widget signInButton() {
     return RaisedButton(
-      child: Text('Sign In'),onPressed: (){},
+      color: Colors.orange[400],
+      child: Text(
+        'Sign In',
+        style: TextStyle(color: Colors.white),
+      ),
+      onPressed: () {},
     );
   }
 
@@ -23,8 +44,13 @@ class _AuthenState extends State<Authen> {
       width: 220.0,
       child: Row(
         children: <Widget>[
-          signInButton(),
-          signInButton(),
+          Expanded(
+            child: signInButton(),
+          ),
+          mySizeBox(),
+          Expanded(
+            child: signUpButton(),
+          ),
         ],
       ),
     );
@@ -83,6 +109,11 @@ class _AuthenState extends State<Authen> {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       body: Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+          colors: [Colors.white, Colors.pink[100]],
+          begin: Alignment.topCenter,
+        )),
         padding: EdgeInsets.only(top: 60.0),
         alignment: Alignment.topCenter,
         child: Column(
