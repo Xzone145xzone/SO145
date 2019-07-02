@@ -8,9 +8,54 @@ class Authen extends StatefulWidget {
 
 class _AuthenState extends State<Authen> {
 //Explict
-  double mySize = 180.0;
+  double mySize = 250.0;
 
 //Medthod
+
+  Widget signInButton() {
+    return RaisedButton(
+      child: Text('Sign In'),onPressed: (){},
+    );
+  }
+
+  Widget myButton() {
+    return Container(
+      width: 220.0,
+      child: Row(
+        children: <Widget>[
+          signInButton(),
+          signInButton(),
+        ],
+      ),
+    );
+  }
+
+  Widget passwordText() {
+    return Container(
+      width: 220.0,
+      child: TextFormField(
+        obscureText: true,
+        decoration: InputDecoration(
+          labelText: 'Password',
+          hintText: 'More 6 Charactor',
+        ),
+      ),
+    );
+  }
+
+  Widget emailText() {
+    return Container(
+      width: 220.0,
+      child: TextFormField(
+        keyboardType: TextInputType.emailAddress,
+        decoration: InputDecoration(
+          labelText: 'Email :',
+          hintText: 'you@email.com',
+        ),
+      ),
+    );
+  }
+
   Widget showLogo() {
     return Container(
       width: mySize,
@@ -24,18 +69,19 @@ class _AuthenState extends State<Authen> {
 
   Widget showText() {
     return Text(
-      'Ung SOxPOP',
+      'POP',
       style: TextStyle(
-        fontSize: 30.0,
-        fontWeight: FontWeight.bold,
-        color: Colors.orange[700],fontFamily: 'Inconsolata'
-      ),
+          fontSize: 30.0,
+          fontWeight: FontWeight.bold,
+          color: Colors.orange[700],
+          fontFamily: 'Inconsolata'),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       body: Container(
         padding: EdgeInsets.only(top: 60.0),
         alignment: Alignment.topCenter,
@@ -43,6 +89,9 @@ class _AuthenState extends State<Authen> {
           children: <Widget>[
             showLogo(),
             showText(),
+            emailText(),
+            passwordText(),
+            myButton(),
           ],
         ),
       ),
