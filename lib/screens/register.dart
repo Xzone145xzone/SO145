@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/widgets.dart';
+import 'package:ung_so145/screens/myservice.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -7,9 +9,11 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  // ex
+  // explicit
   final formKey = GlobalKey<FormState>();
   String nameString, emailString, passwordString;
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+
 // Medthod
   Widget nameText() {
     return TextFormField(
@@ -23,12 +27,14 @@ class _RegisterState extends State<Register> {
           size: 36.0,
           color: Colors.pink[300],
         ),
-      ),validator:(String value){
+      ),
+      validator: (String value) {
         if (value.isEmpty) {
           return 'Please Fill Name in Blank';
         }
-      },onSaved: (String value){
-      nameString = value;
+      },
+      onSaved: (String value) {
+        nameString = value;
       },
     );
   }
@@ -46,11 +52,13 @@ class _RegisterState extends State<Register> {
           size: 36.0,
           color: Colors.blue[800],
         ),
-      ),validator: (String value){
-        if(!((value.contains('@'))&&(value.contains('.')))){
+      ),
+      validator: (String value) {
+        if (!((value.contains('@')) && (value.contains('.')))) {
           return 'Type Email Format';
         }
-      },onSaved: (String value){
+      },
+      onSaved: (String value) {
         emailString = value;
       },
     );
@@ -68,11 +76,13 @@ class _RegisterState extends State<Register> {
           size: 36.0,
           color: Colors.yellow[800],
         ),
-      ),validator: (String value){
-        if (value.length <= 5){
-     return  'Pass Much More 6 Charactor';
+      ),
+      validator: (String value) {
+        if (value.length <= 5) {
+          return 'Pass Much More 6 Charactor';
         }
-      },onSaved: (String value){
+      },
+      onSaved: (String value) {
         passwordString = value;
       },
     );
@@ -85,10 +95,61 @@ class _RegisterState extends State<Register> {
         print('Upload');
         if (formKey.currentState.validate()) {
           formKey.currentState.save();
-          print('Name = $nameString, Email = $emailString, Pass =$passwordString');
+          print(
+              'Name = $nameString, Email = $emailString, Pass =$passwordString');
+          register();
         }
       },
     );
+  }
+
+  Future<void> register() async {
+    await firebaseAuth
+        .createUserWithEmailAndPassword(
+      email: emailString,
+      password: passwordString,
+    )
+        .then((objResponse) {
+      print('Register Success');
+      setUpDisplayName();
+    }).catchError((objResponse) {
+      print('${objResponse.toString()}');
+      myAlert(objResponse.code.toString(), objResponse.message.toString());
+    });
+  }
+
+  void myAlert(String titleString, String massageString) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(
+              titleString,
+              style: TextStyle(color: Colors.pink),
+            ),
+            content: Text(massageString),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        });
+  }
+
+  Future<void> setUpDisplayName() async {
+    await firebaseAuth.currentUser().then((response) {
+      UserUpdateInfo updateInfo = UserUpdateInfo();
+      updateInfo.displayName = nameString;
+      response.updateProfile(updateInfo);
+
+      var serviceRoute =
+          MaterialPageRoute(builder: (BuildContext context) => Myservice());
+      Navigator.of(context).pushAndRemoveUntil(serviceRoute, (Route<dynamic>route) => false);
+    });
   }
 
   @override

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:ung_so145/screens/myservice.dart';
 import 'package:ung_so145/screens/register.dart';
 
 class Authen extends StatefulWidget {
@@ -10,8 +12,29 @@ class Authen extends StatefulWidget {
 class _AuthenState extends State<Authen> {
 //Explict
   double mySize = 250.0;
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
 //Medthod
+  @override
+  void initState() {
+    super.initState();
+    checkstatus();
+  }
+
+  Future<void> checkstatus() async {
+    FirebaseUser firebaseUser = await firebaseAuth.currentUser();
+    if (firebaseUser != null) {
+      moveToService();
+    }
+  }
+
+  void moveToService() {
+    var serviceRoute =
+        MaterialPageRoute(builder: (BuildContext context) => Myservice());
+    Navigator.of(context)
+        .pushAndRemoveUntil( serviceRoute, (Route<dynamic> route) => false);
+  }
+
   Widget mySizeBox() {
     return SizedBox(
       width: 8.0,
@@ -31,7 +54,7 @@ class _AuthenState extends State<Authen> {
         /// Create Route
         var registerRoute =
             MaterialPageRoute(builder: (BuildContext context) => Register());
-            Navigator.of(context).push(registerRoute);
+        Navigator.of(context).push(registerRoute);
       },
     );
   }
