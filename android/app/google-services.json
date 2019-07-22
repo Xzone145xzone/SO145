@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "660989280136",
+    "firebase_url": "https://ungso-5d8b8.firebaseio.com",
+    "project_id": "ungso-5d8b8",
+    "storage_bucket": "ungso-5d8b8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:660989280136:android:78614479c18a1035",
+        "android_client_info": {
+          "package_name": "th.ac.ssru.ung_so145"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "660989280136-sat0fd7bdfs62cgm2907rppjrne9etuj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIl7V1C3tUSWv8KBMdVjOZDjOU26Y3_vc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "660989280136-sat0fd7bdfs62cgm2907rppjrne9etuj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

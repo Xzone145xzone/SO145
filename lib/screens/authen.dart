@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart' as prefix0;
 import 'package:flutter/widgets.dart';
 import 'package:ung_so145/screens/register.dart';
 
@@ -104,7 +103,7 @@ class _AuthenState extends State<Authen> {
 
   Widget showText() {
     return Text(
-      'POP',
+      'MyApp',
       style: TextStyle(
           fontSize: 30.0,
           fontWeight: FontWeight.bold,
