@@ -1,7 +1,7 @@
 import 'dart:io';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:ung_so145/screens/my_map.dart';
 
 class Myservice extends StatefulWidget {
   @override
@@ -98,7 +98,7 @@ await firebaseAuth.signOut().then((response){
       appBar: AppBar(
         title: Text('My service'),
       ),
-      body: Text('body'),
+      body: MyMap(),
       drawer: showDrewerMenu(),
     );
   }
