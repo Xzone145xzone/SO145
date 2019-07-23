@@ -102,8 +102,9 @@ class _RegisterState extends State<Register> {
       },
     );
   }
-
+  
   Future<void> register() async {
+    
     await firebaseAuth
         .createUserWithEmailAndPassword(
       email: emailString,

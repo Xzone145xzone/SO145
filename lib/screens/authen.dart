@@ -22,10 +22,12 @@ class _AuthenState extends State<Authen> {
   }
 
   Future<void> checkstatus() async {
+
     FirebaseUser firebaseUser = await firebaseAuth.currentUser();
     if (firebaseUser != null) {
       moveToService();
     }
+    
   }
 
   void moveToService() {
