@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ung_so145/screens/my_map.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:ung_so145/screens/show_product.dart';
 
 class Myservice extends StatefulWidget {
   @override
@@ -12,7 +14,52 @@ class _MyserviceState extends State<Myservice> {
 // Explicit
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   String nameString = '';
+  Widget myWidget = ShowProduct();
+
 // medthod
+
+  Widget menuInfo() {
+    return ListTile(
+      leading: Icon(
+        Icons.info,
+        color: Colors.purple,
+        size: 36.0,
+      ),
+      title: Text(
+        'Show Info',
+        style: TextStyle(fontSize: 18.0),
+      ),
+    );
+  }
+
+  Widget menuShowMap() {
+    return ListTile(
+      leading: Icon(
+        Icons.map,
+        color: Colors.green,
+        size: 36.0,
+      ),
+      title: Text(
+        'Show Map',
+        style: TextStyle(fontSize: 18.0),
+      ),
+    );
+  }
+
+  Widget menuShowProduct() {
+    return ListTile(
+      leading: Icon(
+        Icons.business_center,
+        color: Colors.blue,
+        size: 36.0,
+      ),
+      title: Text(
+        'Show Product',
+        style: TextStyle(fontSize: 18.0),
+      ),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -61,6 +108,9 @@ class _MyserviceState extends State<Myservice> {
       child: ListView(
         children: <Widget>[
           headMenu(),
+          menuShowProduct(),
+          menuShowMap(),
+          menuInfo(),
           signOutAnExit(),
         ],
       ),
@@ -79,18 +129,18 @@ class _MyserviceState extends State<Myservice> {
         style: TextStyle(
           fontSize: 18.0,
         ),
-      ),onTap:(){
+      ),
+      onTap: () {
         mySignOut();
       },
     );
   }
 
-Future<void> mySignOut()async{
-await firebaseAuth.signOut().then((response){
-  exit(0);
-});
-}
-
+  Future<void> mySignOut() async {
+    await firebaseAuth.signOut().then((response) {
+      exit(0);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +148,7 @@ await firebaseAuth.signOut().then((response){
       appBar: AppBar(
         title: Text('My service'),
       ),
-      body: MyMap(),
+      body: myWidget,
       drawer: showDrewerMenu(),
     );
   }

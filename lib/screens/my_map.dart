@@ -14,15 +14,22 @@ class _MyMapState extends State<MyMap> {
     zoom: 16.0,
   );
 
-
-  
-
   // Method
+  Set<Marker> myMarker() {
+    return <Marker>[
+      Marker(
+        position: ssruLatLng,
+        markerId: MarkerId('idSSRU'),
+      ),
+    ].toSet();
+  }
+
   Widget showMap() {
     return GoogleMap(
       mapType: MapType.normal,
       initialCameraPosition: camaraPosition,
-      onMapCreated: (GoogleMapController googleMapController){},
+      onMapCreated: (GoogleMapController googleMapController) {},
+      markers: myMarker(),
     );
   }
 
