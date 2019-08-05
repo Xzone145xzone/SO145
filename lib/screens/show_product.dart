@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:ung_so145/models/product_model.dart';
 
 class ShowProduct extends StatefulWidget {
   @override
@@ -13,6 +14,7 @@ class _ShowProductState extends State<ShowProduct> {
   Firestore fireStore = Firestore.instance;
   StreamSubscription<QuerySnapshot> subscription;
   List<DocumentSnapshot> snapshots;
+  List<ProductModel> productModels = [];
 
   //medthod
   @override
@@ -26,20 +28,34 @@ class _ShowProductState extends State<ShowProduct> {
     subscription = await collectionReference.snapshots().listen((dataSnapshop) {
       snapshots = dataSnapshop.documents;
 
-    for (var snapshot in snapshots) {
-
+      for (var snapshot in snapshots) {
         String nameProduct = snapshot.data['Name'];
         print('nameProduct = $nameProduct');
 
-    }
+        String detailProduct = snapshot.data['Detail'];
+        String urlProduct = snapshot.data['Url'];
 
+        ProductModel productModel =
+            ProductModel(nameProduct, detailProduct, urlProduct);
+        setState(() {
+          productModels.add(productModel);
+        });
+      }
     });
+  }
+
+  Widget showListProduct() {
+    return ListView.builder(
+      itemCount: productModels.length,itemBuilder: (BuildContext context,int index){
+        return Text(productModels[index].name);
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text('This is ShowProduct'),
+      child: showListProduct(),
     );
   }
 }
