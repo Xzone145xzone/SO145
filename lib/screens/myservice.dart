@@ -1,8 +1,10 @@
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:ung_so145/main.dart';
 import 'package:ung_so145/screens/my_map.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:ung_so145/screens/show_info.dart';
 import 'package:ung_so145/screens/show_product.dart';
 
 class Myservice extends StatefulWidget {
@@ -18,6 +20,13 @@ class _MyserviceState extends State<Myservice> {
 
 // medthod
 
+  Widget myDivder() {
+    return Divider(
+      color: Colors.pink,
+      height: 16.0,
+    );
+  }
+
   Widget menuInfo() {
     return ListTile(
       leading: Icon(
@@ -28,7 +37,12 @@ class _MyserviceState extends State<Myservice> {
       title: Text(
         'Show Info',
         style: TextStyle(fontSize: 18.0),
-      ),
+      ),onTap: (){
+        setState(() {
+         myWidget = ShowInfo();
+         Navigator.of(context).pop(); 
+        });
+      },
     );
   }
 
@@ -42,7 +56,12 @@ class _MyserviceState extends State<Myservice> {
       title: Text(
         'Show Map',
         style: TextStyle(fontSize: 18.0),
-      ),
+      ),onTap: (){
+        setState(() {
+         myWidget = MyMap();
+         Navigator.of(context).pop(); 
+        });
+      },
     );
   }
 
@@ -56,7 +75,12 @@ class _MyserviceState extends State<Myservice> {
       title: Text(
         'Show Product',
         style: TextStyle(fontSize: 18.0),
-      ),
+      ),onTap: (){
+        setState(() {
+         myWidget = ShowProduct();
+         Navigator.of(context).pop(); 
+        });
+      },
     );
   }
 
@@ -109,9 +133,13 @@ class _MyserviceState extends State<Myservice> {
         children: <Widget>[
           headMenu(),
           menuShowProduct(),
+          myDivder(),
           menuShowMap(),
+          myDivder(),
           menuInfo(),
+          myDivder(),
           signOutAnExit(),
+          myDivder(),
         ],
       ),
     );
