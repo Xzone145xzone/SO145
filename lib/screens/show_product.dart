@@ -45,10 +45,64 @@ class _ShowProductState extends State<ShowProduct> {
   }
 
   Widget showListProduct() {
-    return ListView.builder(
-      itemCount: productModels.length,itemBuilder: (BuildContext context,int index){
-        return Text(productModels[index].name);
-      },
+    return Container(
+      child: ListView.builder(
+        itemCount: productModels.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Container( decoration: index % 2 == 0 
+          ? BoxDecoration(color: Colors.pink[50])
+          :BoxDecoration(color: Colors.white),
+            child: Row( 
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                showImage(index),
+                SizedBox(
+                  width: 8.0,
+                ),
+                showText(index),
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget showImage(int index) {
+    return Container(
+      margin: EdgeInsets.all(5.0),
+      decoration: BoxDecoration(
+          border: Border.all(), borderRadius: BorderRadius.circular(30.0)),
+      width: 150.0,
+      height: 100.0,
+      child: Image.network(
+        productModels[index].url,
+        fit: BoxFit.contain,
+      ),
+    );
+  }
+
+  Widget showText(int index) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: <Widget>[showName(index), showDetailShort(index)],
+    );
+  }
+
+  Widget showName(int index) {
+    return Text(
+      productModels[index].name,
+      style: TextStyle(fontSize: 24.0),
+    );
+  }
+
+  Widget showDetailShort(int index) {
+    String detailShort = productModels[index].detail.substring(0, 65);
+    return Container(
+      width: 200.0,
+      child: Text(
+        '$detailShort ...',
+      ),
     );
   }
 

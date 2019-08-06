@@ -21,7 +21,7 @@ class _AuthenState extends State<Authen> {
   @override
   void initState() {
     super.initState();
-    //checkstatus();
+    checkstatus();
   }
 
   Future<void> checkstatus() async {
