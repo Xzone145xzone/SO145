@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ung_so145/models/product_model.dart';
+import 'package:ung_so145/screens/show_detail.dart';
 
 class ShowProduct extends StatefulWidget {
   @override
@@ -49,19 +50,30 @@ class _ShowProductState extends State<ShowProduct> {
       child: ListView.builder(
         itemCount: productModels.length,
         itemBuilder: (BuildContext context, int index) {
-          return Container( decoration: index % 2 == 0 
-          ? BoxDecoration(color: Colors.pink[50])
-          :BoxDecoration(color: Colors.white),
-            child: Row( 
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                showImage(index),
-                SizedBox(
-                  width: 8.0,
-                ),
-                showText(index),
-              ],
+          return GestureDetector(
+            child: Container(
+              decoration: index % 2 == 0
+                  ? BoxDecoration(color: Colors.pink[50])
+                  : BoxDecoration(color: Colors.white),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  showImage(index),
+                  SizedBox(
+                    width: 8.0,
+                  ),
+                  showText(index),
+                ],
+              ),
             ),
+            onTap: () {
+              print('you click index = $index');
+              var showDetailRoute = MaterialPageRoute(
+                  builder: (BuildContext context) => ShowDetail(
+                        productModel: productModels[index],
+                      ));
+              Navigator.of(context).push(showDetailRoute);
+            },
           );
         },
       ),
